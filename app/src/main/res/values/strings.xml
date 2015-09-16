@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Zconf</string>
+    <string name="app_name">زیکانف</string>
 
     <string name="close">Close</string>
     <string name="open">Open</string>
-    <string name="thursday">Thursday</string>
-    <string name="friday">Friday</string>
-    <string name="twitter">Twitter</string>
-    <string name="picture">Pictures</string>
+    <string name="thursday">۵شنبه</string>
+    <string name="friday">جمعه</string>
+    <string name="twitter">تویتر</string>
+    <string name="picture">تصاویر</string>
 </resources>

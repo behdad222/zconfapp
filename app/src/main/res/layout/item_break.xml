@@ -23,10 +23,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="title service"
+                android:text="title"
                 android:textColor="@color/white"
-                android:gravity="right"
-                android:textSize="15sp"
+                android:gravity="start"
+                android:textSize="16sp"
                 android:singleLine="true"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/title" />
@@ -36,8 +36,8 @@
                 android:layout_height="wrap_content"
                 android:text="time"
                 android:textColor="@color/white"
-                android:gravity="right"
-                android:textSize="15sp"
+                android:gravity="start"
+                android:textSize="16sp"
                 android:singleLine="true"
                 android:layout_above="@+id/title"
                 android:id="@+id/time" />
