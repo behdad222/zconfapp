@@ -25,7 +25,6 @@ import ir.zconf.zconfapp.Entity.SubjectEntity;
 import ir.zconf.zconfapp.Interface.Retrofit.GetDataApi;
 import ir.zconf.zconfapp.R;
 import ir.zconf.zconfapp.StaticField;
-import ir.zconf.zconfapp.Util.Tools;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -38,7 +37,6 @@ public class DayFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     private DBAdapter db;
     private SwipeRefreshLayout swipeContainer;
     private ArrayList<SubjectEntity> subjects;
-    private Tools tools;
     private ProgressBar progressBar;
     private String dayName;
     private int dayNumber;
@@ -55,7 +53,6 @@ public class DayFragment extends Fragment implements SwipeRefreshLayout.OnRefres
             dayNumber = 1;
         }
 
-        tools = new Tools(getActivity());
         subjects = new ArrayList<>();
         db = new DBAdapter(getActivity());
 
