@@ -99,7 +99,7 @@ public class DayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             Picasso.with(context)
                     .load(subjects.get(position).getImage())
-                    .placeholder(R.mipmap.zconf)
+                    .placeholder(R.mipmap.zconf_type)
                     .into(viewHolderBreak.image);
 
             viewHolderBreak.title.setText(subjects.get(position).getTitle());
