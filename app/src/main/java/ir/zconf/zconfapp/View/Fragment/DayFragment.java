@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -39,10 +40,20 @@ public class DayFragment extends Fragment implements SwipeRefreshLayout.OnRefres
     private ArrayList<SubjectEntity> subjects;
     private Tools tools;
     private ProgressBar progressBar;
+    private String dayName;
+    private int dayNumber;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        dayName = getArguments().getString(StaticField.dayNumber);
         View view = inflater.inflate(R.layout.fragment_day, container, false);
+
+        if (dayName.equals(StaticField.thursday)) {
+            dayNumber = 0;
+        } else {
+            dayNumber = 1;
+        }
 
         tools = new Tools(getActivity());
         subjects = new ArrayList<>();
@@ -67,12 +78,7 @@ public class DayFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         adapter = new DayAdapter(getActivity(), subjects);
         recyclerView.setAdapter(adapter);
 
-
-        if (tools.isOnline()) {
-            getFromServer(true);
-        } else {
-            showData();
-        }
+        showData();
 
         return view;
     }
@@ -95,9 +101,9 @@ public class DayFragment extends Fragment implements SwipeRefreshLayout.OnRefres
                     @Override
                     public void success(DataEntity dataEntity, Response response) {
                         subjects.clear();
-                        Collections.addAll(subjects, dataEntity.getDay()[0].getSubject());
+                        Collections.addAll(subjects, dataEntity.getDay()[dayNumber].getSubject());
 
-                        db.insertOrUpdateDay(dataEntity.getDay()[0]);
+                        db.insertOrUpdateDay(dataEntity.getDay()[dayNumber], dayName);
                         swipeContainer.setRefreshing(false);
                         adapter.notifyDataSetChanged();
                         progressBar.setVisibility(View.GONE);
@@ -106,9 +112,11 @@ public class DayFragment extends Fragment implements SwipeRefreshLayout.OnRefres
 
                     @Override
                     public void failure(RetrofitError error) {
-//                        Toast.makeText(getActivity(), getString(R.string.error_connection),
-//                                Toast.LENGTH_LONG).show();
-                        showData();
+                        progressBar.setVisibility(View.GONE);
+                        swipeContainer.setRefreshing(false);
+                        swipeContainer.setVisibility(View.VISIBLE);
+                        Toast.makeText(getActivity(), getString(R.string.error_connection),
+                                Toast.LENGTH_LONG).show();
                     }
                 }
         );
@@ -116,7 +124,7 @@ public class DayFragment extends Fragment implements SwipeRefreshLayout.OnRefres
 
 
     private void showData() {
-        DayModel day = db.getDay("0");
+        DayModel day = db.getDay(dayName);
         subjects.clear();
 
         if (day != null) {
@@ -138,8 +146,7 @@ public class DayFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         swipeContainer.setVisibility(View.VISIBLE);
 
         if (subjects.size() == 0) {
-//            Toast.makeText(getActivity(), getString(R.string.list_empty),
-//                    Toast.LENGTH_LONG).show();
+            getFromServer(true);
         }
     }
 

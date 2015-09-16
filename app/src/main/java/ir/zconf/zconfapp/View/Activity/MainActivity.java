@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import ir.zconf.zconfapp.R;
+import ir.zconf.zconfapp.StaticField;
 import ir.zconf.zconfapp.View.Fragment.DayFragment;
 import ir.zconf.zconfapp.View.Fragment.PicturesFragment;
 import ir.zconf.zconfapp.View.Fragment.TwitterFragment;
@@ -50,16 +51,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBarDrawerToggle.syncState();
 
         Fragment fragment;
+        Bundle bundle = new Bundle();
         long unixTime = System.currentTimeMillis() / 1000L;
 
         if (unixTime < 1442534400) { //09/18/2015 @ 12:00am (UTC)
             fragment = new DayFragment();
+            bundle.putString(StaticField.dayNumber, StaticField.thursday);
+            fragment.setArguments(bundle);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame, fragment)
                     .commit();
         } else if (unixTime < 1442620800){ //09/19/2015 @ 12:00am (UTC)
             fragment = new DayFragment();
+            bundle.putString(StaticField.dayNumber, StaticField.friday);
+            fragment.setArguments(bundle);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame, fragment)
@@ -79,11 +85,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawers();
 
         Fragment fragment;
+        Bundle bundle = new Bundle();
 
         switch (menuItem.getItemId()){
 
             case R.id.thursday:
                 fragment = new DayFragment();
+                bundle.putString(StaticField.dayNumber, StaticField.thursday);
+                fragment.setArguments(bundle);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frame, fragment)
@@ -92,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.friday:
                 fragment = new DayFragment();
+                bundle.putString(StaticField.dayNumber, StaticField.friday);
+                fragment.setArguments(bundle);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.frame, fragment)

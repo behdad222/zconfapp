@@ -16,7 +16,7 @@ public class DBAdapter {
     }
 
 
-    public void insertOrUpdateDay(DayEntity day) {
+    public void insertOrUpdateDay(DayEntity day, String title) {
         DayModel dayModel;
 
         realm.beginTransaction();
@@ -38,6 +38,7 @@ public class DBAdapter {
         }
 
         dayModel.setSubject(subjectModels);
+        dayModel.setTitle(title);
         realm.commitTransaction();
     }
 

@@ -7,4 +7,5 @@
     <string name="friday">جمعه</string>
     <string name="twitter">تویتر</string>
     <string name="picture">تصاویر</string>
+    <string name="error_connection">خطا در برقراری ارتباط</string>
 </resources>
